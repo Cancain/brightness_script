@@ -12,7 +12,6 @@ async function main() {
   try {
     const maxBrightnessData = await readFileAsync(maxBrightnessFile);
     maxBrightness = parseInt(maxBrightnessData.toString().trim());
-    console.log("Max Brightness:", maxBrightness);
   } catch (err) {
     console.error("Could not read max brightness:", err);
     return;
@@ -20,7 +19,6 @@ async function main() {
 
   if (maxBrightness === 0) {
     console.error("Could not set max brightness");
-    console.log("Max Brightness:", maxBrightness);
     return;
   }
 
@@ -28,14 +26,12 @@ async function main() {
     const brightnessData = await readFileAsync(brightnessFile);
     const brightness = parseInt(brightnessData.toString().trim());
     let newBrightness = brightness;
-    console.log("Current Brightness:", brightness);
 
     const arg = process.argv[2];
     if (!arg) {
       console.error("Arg missing: -i to increase -d for decrease");
       return;
     }
-    console.log("Arg:", arg);
 
     const increments = 10000;
     if (arg === "i") {
@@ -43,12 +39,11 @@ async function main() {
     } else if (arg === "d") {
       newBrightness -= increments;
     }
-    console.log("New Brightness:", newBrightness);
 
     if (newBrightness < minBrightness) newBrightness = minBrightness;
     if (newBrightness > maxBrightness) newBrightness = maxBrightness;
 
-    fs.writeFile(brightnessFile, newBrightness.toString(), (err, res) => {});
+    fs.writeFile(brightnessFile, newBrightness.toString(), () => {});
   } catch (err) {
     console.error("Error reading brightness:", err);
   }
