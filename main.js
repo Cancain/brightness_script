@@ -3,7 +3,7 @@ const util = require("util");
 const readFileAsync = util.promisify(fs.readFile);
 
 async function main() {
-  const minBrightness = 1200;
+  const minBrightness = 0;
   let maxBrightness = 0;
   const dir = "/sys/class/backlight/intel_backlight/";
   const brightnessFile = dir + "brightness";
@@ -33,7 +33,7 @@ async function main() {
       return;
     }
 
-    const increments = 10000;
+    const increments = 5000;
     if (arg === "i") {
       newBrightness += increments;
     } else if (arg === "d") {
